@@ -4,8 +4,14 @@
     "version": "0.0.1",
     "private": true,
     "dependencies": {
+        "aws-sdk": "^2.585.0",
+        "aws-serverless-express": "3.1.3",
+        "body-parser": "^1.19.0",
+        "cors": "^2.8.5",
         "express": "4.16.2",
-        "aws-serverless-express": "3.1.3"
+        "swagger-ui-express": "^4.1.2",
+        "uuid": "^3.3.3",
+        "yamljs": "^0.3.0"
     },
     "devDependencies": {
         "mocha": "5.0.0",
@@ -13,6 +19,8 @@
         "supertest": "3.0.0"
     },
     "scripts": {
+        "start": "sam local start-api -p 3000 --env-vars env.json",
+        "validate": "sam validate -t template.yml",
         "test": "mocha --recursive tests"
     }
 }
