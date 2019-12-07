@@ -101,6 +101,7 @@ Resources:
       ManagedPolicyArns: 
         - "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"
 
+  AWSDenverDynamoDB:
     Type: AWS::Serverless::SimpleTable
     Properties:
         TableName: '{{resolve:ssm:DENVER_TABLE_NAME:1}}'
