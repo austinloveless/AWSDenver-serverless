@@ -1,8 +1,9 @@
 Welcome to the AWS CodeStar sample web service
 ==============================================
+Commands
+--------
 
-This sample code helps get you started with a simple Express web service
-deployed by AWS CloudFormation to AWS Lambda and Amazon API Gateway.
+`aws ssm put-parameter --name "DENVER_TABLE_NAME" --value "DenverServerlessTable" --type String`
 
 What's Here
 -----------
