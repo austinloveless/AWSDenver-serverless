@@ -7,6 +7,10 @@ Commands
 
 `aws ssm put-parameter --name "DENVER_AUTHORIZER_TOKEN" --value "allow" --type String`
 
+`aws ssm put-parameter --name "DENVER_API_ACCOUNTID" --value "<YOUR ACCOUNT NUMBER>" --type String`
+
+aws ssm put-parameter --name "DENVER_API_REGION" --value "us-east-1" --type String`
+
 What's Here
 -----------
 
