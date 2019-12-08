@@ -8,16 +8,17 @@ Commands
 What's Here
 -----------
 
-This sample includes:
+This project includes:
 
 * README.md - this file
 * buildspec.yml - this file is used by AWS CodeBuild to package your
   service for deployment to AWS Lambda
-* app.js - this file contains the sample Node.js code for the web service
+* src/app.js - this file contains the sample Node.js code for the web service
 * index.js - this file contains the AWS Lambda handler code
 * template.yml - this file contains the AWS Serverless Application Model (AWS SAM) used
   by AWS CloudFormation to deploy your service to AWS Lambda and Amazon API
   Gateway.
+* routes.yaml - this file is used to define routes for API Gateway through Swagger
 * tests/ - this directory contains unit tests for your application
 * template-configuration.json - this file contains the project ARN with placeholders used for tagging resources with the project ID
 
