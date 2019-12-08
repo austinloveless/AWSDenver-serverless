@@ -38,7 +38,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: ./src/authorizer
-      Handler: apiGatewayAuthorizer.handler
+      Handler: authorizer.handler
       Runtime: nodejs8.10
       Environment:
         Variables:
