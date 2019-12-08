@@ -58,8 +58,7 @@ securityDefinitions:
     in: "query"
     x-amazon-apigateway-authtype: "custom"
     x-amazon-apigateway-authorizer:
-      authorizerUri:
-        Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${stageVariables.APIAuthorizer}/invocations
+      authorizerUri: arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:807230335956:function:${stageVariables.APIAuthorizer}/invocations
       type: "request"
       authorizerResultTtlInSeconds: 300
       identitySource: "method.request.querystring.auth"
