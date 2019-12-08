@@ -1,54 +1,236 @@
+---
 swagger: "2.0"
 info:
-  title: AWSDenverServerless
-  version: "1.0.0"
-basePath: /prod
+  version: "2019-12-08T21:58:24Z"
+  title: "LambdalessAPI"
+basePath: "/prod"
 schemes:
-- https
+- "https"
 paths:
-  /lambdaless:
+  /api:
+    options:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Empty"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+        passthroughBehavior: "when_no_match"
+        requestTemplates:
+          application/json: "{\"statusCode\": 200}"
+        type: "mock"
+  /api/lambdaless:
     get:
       consumes:
-        - "application/json"
+      - "application/json"
       produces:
-        - "application/json"
+      - "application/json"
       responses:
-        "200":
+        200:
           description: "200 response"
           schema:
             $ref: "#/definitions/Empty"
       x-amazon-apigateway-integration:
-        httpMethod: POST
-        type: AWS
-        uri: { "Fn::Sub": "arn:aws:apigateway:${AWS::Region}:dynamodb:action/Query" }
-        credentials: { "Fn::Sub": "arn:aws:iam::${AccountId}:role/${RoleName}" }
-        requestTemplates:
-          application/json: { 'Fn::Sub': "{ \n\
-          \t\"TableName\": \"${Table}\",\n\
-          \t\"KeyConditionExpression\": \"PageId = :v1\",\n\
-          \t\"ExpressionAttributeValues\": {\n\
-          \t\t\":v1\": { \n\
-          \t\t\t\"S\": \"$input.params('PageId')\"\n\
-          \t\t}\n\
-          \t}\n}"}
+        credentials: "arn:aws:iam::807230335956:role/Lambdalessrole"
+        uri: "arn:aws:apigateway:us-east-1:dynamodb:action/Scan"
         responses:
           default:
-            statusCode: "200"   
-            responseTemplates:
-              application/json: "#set($inputRoot = $input.path('$'))\n\
-              {\n\
-              \t\"comments\": [\n\
-              \t\t#foreach($elem in $inputRoot.Items) {\n\
-              \t\t\t\"PageId\": \"$elem.PageId.S\",\n\
-              \t\t\t\"Message\": \"$elem.Message.S\",\n\
-              \t\t\t\"EventCount\": \"$elem.EventCount.N\"\n\
-              \t\t}#if($foreach.hasNext),#end\n\
-              \t#end\n\
-              \t]\n}"
-        
-x-amazon-apigateway-binary-media-types:
-  - '*/*'
+            statusCode: "200"
+        passthroughBehavior: "when_no_templates"
+        httpMethod: "POST"
+        requestTemplates:
+          application/json: "{\n    \"TableName\": \"DenverServerlessTable\"\n}"
+        type: "aws"
+    post:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Empty"
+      x-amazon-apigateway-integration:
+        credentials: "arn:aws:iam::807230335956:role/Lambdalessrole"
+        uri: "arn:aws:apigateway:us-east-1:dynamodb:action/PutItem"
+        responses:
+          default:
+            statusCode: "200"
+        passthroughBehavior: "when_no_templates"
+        httpMethod: "POST"
+        requestTemplates:
+          application/json: "{ \n    \"TableName\": \"DenverServerlessTable\",\n \
+            \   \"Item\": {\n\t\"id\": {\n            \"S\": \"$context.requestId\"\
+            \n            },\n        \"name\": {\n            \"S\": \"$input.path('$.name')\"\
+            \n        }\n    }\n}"
+        type: "aws"
+    options:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Empty"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+        passthroughBehavior: "when_no_match"
+        requestTemplates:
+          application/json: "{\"statusCode\": 200}"
+        type: "mock"
+  /api/lambdaless/{id}:
+    get:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Empty"
+      x-amazon-apigateway-integration:
+        credentials: "arn:aws:iam::807230335956:role/Lambdalessrole"
+        uri: "arn:aws:apigateway:us-east-1:dynamodb:action/Query"
+        responses:
+          default:
+            statusCode: "200"
+        passthroughBehavior: "when_no_templates"
+        httpMethod: "POST"
+        requestTemplates:
+          application/json: "{\n    \"TableName\": \"DenverServerlessTable\",\n  \
+            \  \"KeyConditionExpression\": \"id = :id\",\n    \"ExpressionAttributeValues\"\
+            : {\n        \":id\": {\n            \"S\": \"$input.params('id')\"\n\
+            \        }\n    }\n}"
+        type: "aws"
+    put:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Empty"
+      x-amazon-apigateway-integration:
+        credentials: "arn:aws:iam::807230335956:role/Lambdalessrole"
+        uri: "arn:aws:apigateway:us-east-1:dynamodb:action/UpdateItem"
+        responses:
+          default:
+            statusCode: "200"
+        passthroughBehavior: "when_no_templates"
+        httpMethod: "POST"
+        requestTemplates:
+          application/json: "{    \n    \"TableName\": \"DenverServerlessTable\",\n\
+            \    \"Key\": {\n        \"id\": {\n            \"S\": \"$input.params('id')\"\
+            \n        }\n    },\n    \"UpdateExpression\": \"SET Name = :name\",\n\
+            \    \"ExpressionAttributeValues\": {\n        \":name\": {\n        \
+            \    \"S\": \"$input.path('$.Name')\"\n        }\n    }\n    \"ReturnValues\"\
+            : \"ALL_NEW\"\n  };\n  "
+        type: "aws"
+    delete:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Empty"
+      x-amazon-apigateway-integration:
+        credentials: "arn:aws:iam::807230335956:role/Lambdalessrole"
+        uri: "arn:aws:apigateway:us-east-1:dynamodb:action/DeleteItem"
+        responses:
+          default:
+            statusCode: "200"
+        passthroughBehavior: "when_no_templates"
+        httpMethod: "POST"
+        requestTemplates:
+          application/json: "{\n    \"TableName\": \"DenverServerlessTable\",\n  \
+            \  \"Key\": {\n        \"id\": {\n                \"S\": \"$input.params('id')\"\
+            \n        }\n    }\n}"
+        type: "aws"
+    options:
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Empty"
+          headers:
+            Access-Control-Allow-Origin:
+              type: "string"
+            Access-Control-Allow-Methods:
+              type: "string"
+            Access-Control-Allow-Headers:
+              type: "string"
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Allow-Methods: "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+        passthroughBehavior: "when_no_match"
+        requestTemplates:
+          application/json: "{\"statusCode\": 200}"
+        type: "mock"
 definitions:
   Empty:
-    type: object
-    title: Empty Schema
+    type: "object"
+    title: "Empty Schema"

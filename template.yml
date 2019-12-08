@@ -25,6 +25,12 @@ Globals:
 
 Resources:
 
+  ApiGatewayLambdalessApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      DefinitionUri: ./lambdalessRoutes.yaml
+      StageName: prod
+
   ApiGatewayApi:
     Type: AWS::Serverless::Api
     Properties:
