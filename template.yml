@@ -30,6 +30,7 @@ Resources:
     Properties:
       DefinitionUri: ./lambdalessRoutes.yaml
       StageName: prod
+      Name: LambdalessApi
 
   ApiGatewayApi:
     Type: AWS::Serverless::Api
@@ -121,6 +122,21 @@ Resources:
           Action: sts:AssumeRole
       Path: /
       ManagedPolicyArns: 
+        - "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"
+
+  APIGatewayExecutionRole:
+    Description: Creating service role in IAM for API Gateway
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub 'CodeStar-${ProjectId}-Execution${Stage}'
+      AssumeRolePolicyDocument:
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service: [apigateway.amazonaws.com, dynamodb.amazonaws.com]
+          Action: sts:AssumeRole
+      Path: /
+      ManagedPolicyArns:
         - "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"
 
   AWSDenverDynamoDB:
