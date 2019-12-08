@@ -44,6 +44,8 @@ Resources:
       Runtime: nodejs8.10
       Environment:
         Variables:
+          AccountId: !Ref AWS::AccountId
+          Region: !Ref AWS::Region
           AUTHORIZER_TOKEN: '{{resolve:ssm:DENVER_AUTHORIZER_TOKEN:1}}'
       
 
