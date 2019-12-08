@@ -40,9 +40,11 @@ Resources:
       CodeUri: ./src/authorizer
       Handler: apiGatewayAuthorizer.handler
       Runtime: nodejs8.10
+      Role: !GetAtt LambdaExecutionRole.Arn
       Environment:
         Variables:
           AUTHORIZER_TOKEN: '{{resolve:ssm:DENVER_AUTHORIZER_TOKEN:1}}'
+      
 
   AWSMeetupGroupFunction:
     Type: AWS::Serverless::Function
