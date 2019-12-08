@@ -15,6 +15,8 @@ paths:
           description: 200 response
           schema:
             $ref: "#/definitions/Empty"
+      security:
+        - request_authorizer_single_header: []
       x-amazon-apigateway-integration:
         responses:
           default:
@@ -34,6 +36,8 @@ paths:
         required: true
         type: string
       responses: {}
+      security:
+        - request_authorizer_single_header: []
       x-amazon-apigateway-integration:
         uri: arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:807230335956:function:${stageVariables.ServerlessExpressLambdaFunctionName}/invocations
         httpMethod: POST
@@ -44,3 +48,15 @@ definitions:
   Empty:
     type: object
     title: Empty Schema
+
+securityDefinitions:
+  request_authorizer_single_header:
+    type: "apiKey"
+    name: "auth"
+    in: "query"
+    x-amazon-apigateway-authtype: "custom"
+    x-amazon-apigateway-authorizer:
+      authorizerUri: arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:807230335956:function:${stageVariables.APIAuthorizer}/invocations
+      type: "request"
+      authorizerResultTtlInSeconds: 300
+      identitySource: "method.request.querystring.auth"

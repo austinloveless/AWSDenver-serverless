@@ -32,17 +32,17 @@ Resources:
       StageName: prod
       Variables:
         ServerlessExpressLambdaFunctionName: !Ref AWSMeetupGroupFunction
-        # APIAuthorizer: !Ref APIAuthorizer
+        APIAuthorizer: !Ref APIAuthorizer
 
-  # APIAuthorizer:
-  #   Type: AWS::Serverless::Function
-  #   Properties:
-  #     CodeUri: ./src/authorizer
-  #     Handler: apiGatewayAuthorizer.handler
-  #     Runtime: nodejs8.10
-  #     Environment:
-  #       Variables:
-  #         AUTHORIZER_TOKEN: '{{resolve:ssm:AUTHORIZER_TOKEN:1}}'
+  APIAuthorizer:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./src/authorizer
+      Handler: apiGatewayAuthorizer.handler
+      Runtime: nodejs8.10
+      Environment:
+        Variables:
+          AUTHORIZER_TOKEN: '{{resolve:ssm:DENVER_AUTHORIZER_TOKEN:1}}'
 
   AWSMeetupGroupFunction:
     Type: AWS::Serverless::Function

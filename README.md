@@ -5,6 +5,8 @@ Commands
 
 `aws ssm put-parameter --name "DENVER_TABLE_NAME" --value "DenverServerlessTable" --type String`
 
+`aws ssm put-parameter --name "DENVER_AUTHORIZER_TOKEN" --value "allow" --type String`
+
 What's Here
 -----------
 
