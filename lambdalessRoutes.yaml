@@ -1,0 +1,54 @@
+swagger: "2.0"
+info:
+  title: AWSDenverServerless
+  version: "1.0.0"
+basePath: /prod
+schemes:
+- https
+paths:
+  /lambdaless:
+    get:
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Empty"
+      x-amazon-apigateway-integration:
+        httpMethod: POST
+        type: AWS
+        uri: { "Fn::Sub": "arn:aws:apigateway:${AWS::Region}:dynamodb:action/Query" }
+        credentials: { "Fn::Sub": "arn:aws:iam::${AccountId}:role/${RoleName}" }
+        requestTemplates:
+          application/json: { 'Fn::Sub': "{ \n\
+          \t\"TableName\": \"${Table}\",\n\
+          \t\"KeyConditionExpression\": \"PageId = :v1\",\n\
+          \t\"ExpressionAttributeValues\": {\n\
+          \t\t\":v1\": { \n\
+          \t\t\t\"S\": \"$input.params('PageId')\"\n\
+          \t\t}\n\
+          \t}\n}"}
+        responses:
+          default:
+            statusCode: "200"   
+            responseTemplates:
+              application/json: "#set($inputRoot = $input.path('$'))\n\
+              {\n\
+              \t\"comments\": [\n\
+              \t\t#foreach($elem in $inputRoot.Items) {\n\
+              \t\t\t\"PageId\": \"$elem.PageId.S\",\n\
+              \t\t\t\"Message\": \"$elem.Message.S\",\n\
+              \t\t\t\"EventCount\": \"$elem.EventCount.N\"\n\
+              \t\t}#if($foreach.hasNext),#end\n\
+              \t#end\n\
+              \t]\n}"
+        
+x-amazon-apigateway-binary-media-types:
+  - '*/*'
+definitions:
+  Empty:
+    type: object
+    title: Empty Schema

@@ -34,9 +34,9 @@ function generatePolicyDocument(effect, methodArn) {
     Version: "2012-10-17",
     Statement: [
       {
-        Action: "*",
+        Action: "execute-api:Invoke",
         Effect: effect,
-        Resource: "*"
+        Resource: methodArn
       }
     ]
   };
