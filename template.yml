@@ -128,7 +128,7 @@ Resources:
     Description: Creating service role in IAM for API Gateway
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !Sub 'CodeStar-${ProjectId}-Execution${Stage}'
+      RoleName: APIGatewayExecutionRole
       AssumeRolePolicyDocument:
         Statement:
         - Effect: Allow
