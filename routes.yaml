@@ -21,7 +21,8 @@ paths:
         responses:
           default:
             statusCode: 200
-        uri: { "Fn::Sub": "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${stageVariables.ServerlessExpressLambdaFunctionName}/invocations" } 
+        uri: 
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${stageVariables.ServerlessExpressLambdaFunctionName}/invocations
         passthroughBehavior: when_no_match
         httpMethod: POST
         type: aws_proxy
@@ -39,7 +40,8 @@ paths:
       security:
         - request_authorizer_single_header: []
       x-amazon-apigateway-integration:
-        uri: { "Fn::Sub": "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${stageVariables.ServerlessExpressLambdaFunctionName}/invocations" } 
+        uri: 
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${stageVariables.ServerlessExpressLambdaFunctionName}/invocations     
         httpMethod: POST
         type: aws_proxy
 x-amazon-apigateway-binary-media-types:
@@ -56,7 +58,8 @@ securityDefinitions:
     in: "query"
     x-amazon-apigateway-authtype: "custom"
     x-amazon-apigateway-authorizer:
-      authorizerUri: { "Fn::Sub": "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${stageVariables.APIAuthorizer}/invocations" }
+      authorizerUri:
+        Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${stageVariables.APIAuthorizer}/invocations
       type: "request"
       authorizerResultTtlInSeconds: 300
       identitySource: "method.request.querystring.auth"
