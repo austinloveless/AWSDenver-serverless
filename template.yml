@@ -33,8 +33,6 @@ Resources:
       Variables:
         ServerlessExpressLambdaFunctionName: !Ref AWSMeetupGroupFunction
         APIAuthorizer: !Ref APIAuthorizer
-        Number: '{{resolve:ssm:DENVER_API_ACCOUNTID:1}}'
-        DenverRegion: '{{resolve:ssm:DENVER_API_REGION:1}}'
 
   APIAuthorizer:
     Type: AWS::Serverless::Function
