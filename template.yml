@@ -31,6 +31,8 @@ Resources:
       DefinitionUri: ./swagger/lambdalessRoutes.yaml
       StageName: prod
       Name: LambdalessApi
+      Variable:
+        TABLE_NAME: '{{resolve:ssm:DENVER_TABLE_NAME:1}}'
 
   ApiGatewayApi:
     Type: AWS::Serverless::Api

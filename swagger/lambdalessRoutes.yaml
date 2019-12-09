@@ -57,7 +57,7 @@ paths:
         passthroughBehavior: "when_no_templates"
         httpMethod: "POST"
         requestTemplates:
-          application/json: "{\n    \"TableName\": \"DenverServerlessTable\"\n}"
+          application/json: "{\n    \"TableName\": \"${stageVariables.TABLE_NAME}\"\n}"
         type: "aws"
     post:
       consumes:
@@ -78,7 +78,7 @@ paths:
         passthroughBehavior: "when_no_templates"
         httpMethod: "POST"
         requestTemplates:
-          application/json: "{ \n    \"TableName\": \"DenverServerlessTable\",\n \
+          application/json: "{ \n    \"TableName\": \"${stageVariables.TABLE_NAME}\",\n \
             \   \"Item\": {\n\t\"id\": {\n            \"S\": \"$context.requestId\"\
             \n            },\n        \"name\": {\n            \"S\": \"$input.path('$.name')\"\
             \n        }\n    }\n}"
@@ -137,7 +137,7 @@ paths:
         passthroughBehavior: "when_no_templates"
         httpMethod: "POST"
         requestTemplates:
-          application/json: "{\n    \"TableName\": \"DenverServerlessTable\",\n  \
+          application/json: "{\n    \"TableName\": \"${stageVariables.TABLE_NAME}\",\n  \
             \  \"KeyConditionExpression\": \"id = :id\",\n    \"ExpressionAttributeValues\"\
             : {\n        \":id\": {\n            \"S\": \"$input.params('id')\"\n\
             \        }\n    }\n}"
@@ -166,7 +166,7 @@ paths:
         passthroughBehavior: "when_no_templates"
         httpMethod: "POST"
         requestTemplates:
-          application/json: "{    \n    \"TableName\": \"DenverServerlessTable\",\n\
+          application/json: "{    \n    \"TableName\": \"${stageVariables.TABLE_NAME}\",\n\
             \    \"Key\": {\n        \"id\": {\n            \"S\": \"$input.params('id')\"\
             \n        }\n    },\n    \"UpdateExpression\": \"SET Name = :name\",\n\
             \    \"ExpressionAttributeValues\": {\n        \":name\": {\n        \
@@ -197,7 +197,7 @@ paths:
         passthroughBehavior: "when_no_templates"
         httpMethod: "POST"
         requestTemplates:
-          application/json: "{\n    \"TableName\": \"DenverServerlessTable\",\n  \
+          application/json: "{\n    \"TableName\": \"${stageVariables.TABLE_NAME}\",\n  \
             \  \"Key\": {\n        \"id\": {\n                \"S\": \"$input.params('id')\"\
             \n        }\n    }\n}"
         type: "aws"
