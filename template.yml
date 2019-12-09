@@ -28,14 +28,14 @@ Resources:
   ApiGatewayLambdalessApi:
     Type: AWS::Serverless::Api
     Properties:
-      DefinitionUri: ./lambdalessRoutes.yaml
+      DefinitionUri: ./swagger/lambdalessRoutes.yaml
       StageName: prod
       Name: LambdalessApi
 
   ApiGatewayApi:
     Type: AWS::Serverless::Api
     Properties:
-      DefinitionUri: ./routes.yaml
+      DefinitionUri: ./swagger/routes.yaml
       StageName: prod
       Variables:
         ServerlessExpressLambdaFunctionName: !Ref AWSMeetupGroupFunction

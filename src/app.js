@@ -6,7 +6,7 @@ const cors = require("cors");
 const awsServerlessExpressMiddleware = require("aws-serverless-express/middleware");
 const swaggerUi = require("swagger-ui-express");
 const YAML = require("yamljs");
-const swaggerDocument = YAML.load("./routes.yaml");
+const swaggerDocument = YAML.load("./swagger/routes.yaml");
 
 app.use(cors());
 app.use(bodyParser.json());

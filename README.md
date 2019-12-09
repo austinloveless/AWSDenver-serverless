@@ -1,15 +1,18 @@
-Welcome to the AWS CodeStar sample web service
+AWS Denver Serverless Meetup
 ==============================================
-Commands
---------
 
-`aws ssm put-parameter --name "DENVER_TABLE_NAME" --value "DenverServerlessTable" --type String`
+Prerequisite
+-----------
+- Create an [AWS Account](https://aws.amazon.com/
+)
+- Install Docker Desktop [Mac](https://docs.docker.com/docker-for-mac/install/) or [Windows](https://docs.docker.com/docker-for-windows/install/)
 
-`aws ssm put-parameter --name "DENVER_AUTHORIZER_TOKEN" --value "allow" --type String`
+- Install [AWS CLI](https://aws.amazon.com/cli/) 
 
-`aws ssm put-parameter --name "DENVER_API_ACCOUNTID" --value "<YOUR ACCOUNT NUMBER>" --type String`
+- Install [AWS SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html)
 
-aws ssm put-parameter --name "DENVER_API_REGION" --value "us-east-1" --type String`
+- Install [Node.js](https://nodejs.org/en/download/)
+
 
 What's Here
 -----------
@@ -17,51 +20,64 @@ What's Here
 This project includes:
 
 * README.md - this file
-* buildspec.yml - this file is used by AWS CodeBuild to package your
-  service for deployment to AWS Lambda
+
+* buildspec.yml - this file is used by AWS CodeBuild to package your service for deployment to AWS Lambda
+
 * src/app.js - this file contains the sample Node.js code for the web service
+
 * index.js - this file contains the AWS Lambda handler code
+
 * template.yml - this file contains the AWS Serverless Application Model (AWS SAM) used
   by AWS CloudFormation to deploy your service to AWS Lambda and Amazon API
   Gateway.
-* routes.yaml - this file is used to define routes for API Gateway through Swagger
+
+* routes.yaml - this file is used to define routes for API Gateway through Swagger with AWS Lambda
+
+* lambdalessRoutes.yaml - this file is used to define routes for API Gateway through swagger directly to DynamoDB
+
 * tests/ - this directory contains unit tests for your application
 * template-configuration.json - this file contains the project ARN with placeholders used for tagging resources with the project ID
 
 What Do I Do Next?
 ------------------
 
-If you have checked out a local copy of your repository you can start making
-changes to the sample code.  We suggest making a small change to app.js first,
-so you can see how changes pushed to your project's repository are automatically
-picked up by your project pipeline and deployed to AWS Lambda and Amazon API Gateway.
-(You can watch the pipeline progress on your AWS CodeStar project dashboard.)
-Once you've seen how that works, start developing your own code, and have fun!
+After you have cloned the repo `git clone https://github.com/austinloveless/AWSDenver-serverless.git`
 
-To run your tests locally, go to the root directory of the
-sample code and run the `npm test` command, which
-AWS CodeBuild also runs through your `buildspec.yml` file.
+And after you have installed the Prerequisites.
 
-To test your new code during the release process, modify the existing tests or
-add tests to the tests directory. AWS CodeBuild will run the tests during the
-build stage of your project pipeline. You can find the test results
-in the AWS CodeBuild console.
+You can run: 
 
-Learn more about AWS CodeBuild and how it builds and tests your application here:
-https://docs.aws.amazon.com/codebuild/latest/userguide/concepts.html
+    1. npm install
 
-Learn more about AWS Serverless Application Model (AWS SAM) and how it works here:
-https://github.com/awslabs/serverless-application-model/blob/master/HOWTO.md
+    2. npm start
 
-AWS Lambda Developer Guide:
-http://docs.aws.amazon.com/lambda/latest/dg/deploying-lambda-apps.html
+This will start the application. You can go to `http://localhost:3000` in your browser. 
 
-Learn more about AWS CodeStar by reading the user guide, and post questions and
-comments about AWS CodeStar on our forum.
+Start playing around with the code in `src/app.js` or `src/routes/BasicRoutes.js` to get a feel for how things work. 
 
-User Guide: http://docs.aws.amazon.com/codestar/latest/userguide/welcome.html
+Commands
+--------
 
-Forum: https://forums.aws.amazon.com/forum.jspa?forumID=248
+To start the application run: `npm start`
+
+To validate changes made to `template.yml` are correct run the command `npm run validate`
+
+# Pre Deployment
+
+Adding Environment Variables
+----- 
+
+We have to add environment variables before we can deploy our project
+
+`aws ssm put-parameter --name "DENVER_TABLE_NAME" --value "YOUR_TABLE_NAME" --type String`
+
+`aws ssm put-parameter --name "DENVER_AUTHORIZER_TOKEN" --value "allow" --type String`
+
+
+### If you have downloaded this project from github and want to deploy the project run: 
+
+`aws cloudformation package --template template.yml --s3-bucket < YOUR S3 BUCKET > --output-template template-export.yml`
+
 
 What Should I Do Before Running My Project in Production?
 ------------------
