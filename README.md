@@ -103,7 +103,7 @@ Third
 
 Now that we have our environment varibles and user set up we can create the actual project. 
 
-We need to go back into the [AWS Console](https://aws.amazon.com/)and search for a service called "CodeStar" 
+We need to go back into the [AWS Console](https://aws.amazon.com/) and search for a service called "CodeStar" 
 
 ![Picture of Searching for CodeStar](link-to-image)
 
@@ -111,7 +111,7 @@ From the CodeStar console click "Create a new project". Then select "Express.js 
 
 ![Picture of Selecting express.js](link-to-image)
 
-Give the project a name and selected "GitHub" as your repository of choice". Connect your project to github and select "Next"
+Give the project a name and selected "GitHub" as your repository of choice. Connect your project to github and select "Next" and "Create Project". *Be sure you select GitHub*
 
 ![Picture of project details](link-to-image)
 
@@ -125,22 +125,23 @@ Fourth
 Now that you have created a template project in CodeStar we need to update the template to have the same code as this repo. 
 Instead of copy and pasting over and possible creating errors we should do some Git magic. 
 
-So go to the repo link that is provides in code star. When you successful create the project you should see on the left hand side a link that says "Code". That will bring you directly to the repo. 
+So go to the repo link that is provides in CodeStar. When you successful create the project you should see on the left hand side a link that says "Code". That will bring you directly to the repo. 
 
 Once in the repo run a `git clone < YOUR REPO >` in your terminal to get the project on your machine. 
 
-From there we are going to change the git remote to reference this repo to update the code in a quick and efficient way. 
-
 First clone the repo `git clone https://github.com/austinloveless/AWSDenver-serverless.git`
 
-After you've cloned the repo created from CodeStar and my repo cd into the directory of the CodeStar repo and run `git remote -v`. Take note of the url e.g. `git@github.com:austinloveless/AWSDenver-serverless.git (fetch)`.
+After you’ve cloned the repo created from CodeStar and my repo cd into the directory of the CodeStar repo and run `git remote -v`. Take note of the url e.g. `<your repo address> (fetch)`.
 
-Next cd into the AWSDenver-serverless directory and run `git remote rm origin` to remove the origin. Then run `git remote add origin <Origin you took note of earlier>`. Verify you have changed the origin with `git remote -v`. 
+Next `cd` into the AWSDenver-serverless directory and run `git remote rm origin` to remove the origin. Then run `git remote add origin <your repo address>`. 
 
-Finally run `git push --set-upstream origin master --force` to push the code up to CodeStar and you should have an updated repo like this repo. 
+Verify you have changed the origin with `git remote -v`.
+
+Finally run `git push --set-upstream origin master --force` to push the code up to CodeStar and you should have an updated repo like this repo.
+
+Force pushing to master is very dangerous, and could even get you in trouble at work if your company has a policy disallowing it.  Use this technique with great care.  You should only need to force push once during this lab.
 
 ![Picture of commands](link-to-image)
-
 
 If you go back to CodeStar you should see it updating your project in the "Continuous deployment" section. 
 
