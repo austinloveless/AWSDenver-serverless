@@ -49,7 +49,7 @@ paths:
           schema:
             $ref: "#/definitions/Empty"
       x-amazon-apigateway-integration:
-        credentials: "arn:aws:iam::807230335956:role/APIGatewayExecutionRole"
+        credentials: "arn:aws:iam::<YOUR ACCOUNT ID>:role/APIGatewayExecutionRole"
         uri: "arn:aws:apigateway:us-east-1:dynamodb:action/Scan"
         responses:
           default:
@@ -70,7 +70,7 @@ paths:
           schema:
             $ref: "#/definitions/Empty"
       x-amazon-apigateway-integration:
-        credentials: "arn:aws:iam::807230335956:role/APIGatewayExecutionRole"
+        credentials: "arn:aws:iam::<YOUR ACCOUNT ID>:role/APIGatewayExecutionRole"
         uri: "arn:aws:apigateway:us-east-1:dynamodb:action/PutItem"
         responses:
           default:
@@ -129,7 +129,7 @@ paths:
           schema:
             $ref: "#/definitions/Empty"
       x-amazon-apigateway-integration:
-        credentials: "arn:aws:iam::807230335956:role/APIGatewayExecutionRole"
+        credentials: "arn:aws:iam::<YOUR ACCOUNT ID>:role/APIGatewayExecutionRole"
         uri: "arn:aws:apigateway:us-east-1:dynamodb:action/Query"
         responses:
           default:
@@ -158,7 +158,7 @@ paths:
           schema:
             $ref: "#/definitions/Empty"
       x-amazon-apigateway-integration:
-        credentials: "arn:aws:iam::807230335956:role/APIGatewayExecutionRole"
+        credentials: "arn:aws:iam::<YOUR ACCOUNT ID>:role/APIGatewayExecutionRole"
         uri: "arn:aws:apigateway:us-east-1:dynamodb:action/UpdateItem"
         responses:
           default:
@@ -189,7 +189,7 @@ paths:
           schema:
             $ref: "#/definitions/Empty"
       x-amazon-apigateway-integration:
-        credentials: "arn:aws:iam::807230335956:role/APIGatewayExecutionRole"
+        credentials: "arn:aws:iam::<YOUR ACCOUNT ID>:role/APIGatewayExecutionRole"
         uri: "arn:aws:apigateway:us-east-1:dynamodb:action/DeleteItem"
         responses:
           default:

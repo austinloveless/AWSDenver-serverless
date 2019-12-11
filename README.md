@@ -60,23 +60,23 @@ First
 
 In the AWS console we need to create an IAM user. 
 
-![Picture of clicking into IAM](link-to-image)
+![Picture of clicking into IAM](https://awsmeetupgroupreadmeimages.s3.amazonaws.com/ServerlessClassImages/Screen+Shot+2019-12-10+at+2.36.53+PM.png)
 
 Go to the IAM Dashboard and select "Users". Then select "Add User". 
 
 Give your user a name and select "Programmatic Access"
 
-![Picture of Add user screen filled out](link-to-image)
+![Picture of Add user screen filled out](https://awsmeetupgroupreadmeimages.s3.amazonaws.com/ServerlessClassImages/Screen+Shot+2019-12-10+at+2.37.45+PM.png)
 
 Hit "Next: Permissions" and then select "Attach existing policies directly". From there add "AdministratorAccess".
 
 Then hit "Next: Tags" to add any tags if you'd like. Lastly hit "Next: Review" and "Create User". 
 
-![Picture of successfully created user](link-to-image)
+![Picture of successfully created user](https://awsmeetupgroupreadmeimages.s3.amazonaws.com/ServerlessClassImages/Screen+Shot+2019-12-10+at+2.38.13+PM.png)
 
 After creating a user copy the access key and in a terminal run the command `aws configure` this will link your machine up with your AWS account. After running the command you will be prompted to input your "AWS Access Key ID:" then copy the one in the IAM Console. And repeat this for the "AWS Secret Access Key:". Set your region to "us-east-1" and hit enter. 
 
-![Picture of Terminal filled out. ](link-to-image)
+![Picture of Terminal filled out. ](https://awsmeetupgroupreadmeimages.s3.amazonaws.com/ServerlessClassImages/Screen+Shot+2019-12-10+at+2.39.10+PM.png)
 
 Second
 -----
@@ -95,7 +95,7 @@ The second parameter is called "DENVER_AUTHORIZER_TOKEN" which we will create in
 `aws ssm put-parameter --name "DENVER_AUTHORIZER_TOKEN" --value "allow" --type String`
 
 
-![Picture of Terminal of inputting both parameters](link-to-image)
+![Picture of Terminal of inputting both parameters](https://awsmeetupgroupreadmeimages.s3.amazonaws.com/ServerlessClassImages/Screen+Shot+2019-12-10+at+2.41.05+PM.png)
 
 
 Third
@@ -105,19 +105,19 @@ Now that we have our environment varibles and user set up we can create the actu
 
 We need to go back into the [AWS Console](https://aws.amazon.com/) and search for a service called "CodeStar" 
 
-![Picture of Searching for CodeStar](link-to-image)
+![Picture of Searching for CodeStar](https://awsmeetupgroupreadmeimages.s3.amazonaws.com/ServerlessClassImages/Screen+Shot+2019-12-10+at+2.41.32+PM.png)
 
 From the CodeStar console click "Create a new project". Then select "Express.js AWS Lambda" its on the far right" 
 
-![Picture of Selecting express.js](link-to-image)
+![Picture of Selecting express.js](https://awsmeetupgroupreadmeimages.s3.amazonaws.com/ServerlessClassImages/Screen+Shot+2019-12-10+at+2.42.01+PM.png)
 
 Give the project a name and selected "GitHub" as your repository of choice. Connect your project to github and select "Next" and "Create Project". *Be sure you select GitHub*
 
-![Picture of project details](link-to-image)
+![Picture of project details](https://awsmeetupgroupreadmeimages.s3.amazonaws.com/ServerlessClassImages/Screen+Shot+2019-12-10+at+2.42.30+PM.png)
 
 Your project will take a few minutes to be created and will create you a repo and a full CI/CD pipeline. 
 
-![Picture of CodeStar after creation](link-to-image)
+![Picture of CodeStar after creation](https://awsmeetupgroupreadmeimages.s3.amazonaws.com/ServerlessClassImages/Screen+Shot+2019-12-10+at+2.46.16+PM.png)
 
 Fourth
 ------
@@ -141,22 +141,20 @@ Finally run `git push --set-upstream origin master --force` to push the code up 
 
 Force pushing to master is very dangerous, and could even get you in trouble at work if your company has a policy disallowing it.  Use this technique with great care.  You should only need to force push once during this lab.
 
-![Picture of commands](link-to-image)
+![Picture of CodeStar with build](https://awsmeetupgroupreadmeimages.s3.amazonaws.com/Screen+Shot+2019-12-10+at+5.30.15+PM.png)
 
 If you go back to CodeStar you should see it updating your project in the "Continuous deployment" section. 
 
-![Picture of CodeStar with build](link-to-image)
-
 You're project will fail the deployment though because we need to do a couple more steps. We need to update some code in the repo and update permissions of an IAM user. 
+
+![Picture of CodeStar with build](https://awsmeetupgroupreadmeimages.s3.amazonaws.com/ServerlessClassImages/Screen+Shot+2019-12-10+at+5.54.49+PM.png)
 
 First what we can do is update the AccountID in the repo. Unfortunately CloudFormation doesn't support adding AccountIds or Regions in Swagger definitions. So we have to hard code it. If you go into the "Swagger" folder you'll see two files. This is where we have defined our APIs. Go in both files and search for `<YOUR ACCOUNT ID>`. We need to replace all of those with your Account ID. So we'll have to go back into the console grab the account ID and paste it in. 
 
-![Picture of Swagger](link-to-image)
+![Picture of Swagger](https://awsmeetupgroupreadmeimages.s3.amazonaws.com/ServerlessClassImages/Screen+Shot+2019-12-10+at+5.56.23+PM.png)
 
 
 If you go to the console and go to the top right of the console you should see a your username. Click that and a drop down will open up. Click "My Account" your 12-digit account ID is listed under Account Settings. Copy that and paste that into your code.
-
-![Picture of AccountID](link-to-image)
 
 
 Finally
@@ -168,17 +166,17 @@ We need to add 3 roles to our Cloudformation role in CodeStar. We have to do thi
 
 So go into the AWS console and search for CodeStar again. On the far left hand side in the same navigation you used earlier to get to your code click "Project" at the very bottom. 
 
-From there you will be able to "Project Resources" if you scroll down towards the bottom of that you will see "AWS IAM". Look for the role with the extension "CloudFormation" e.g. `arn:aws:iam::<AccountID>:role/CodeStarWorker-awsdenver-serve-CloudFormation`.
+![Picture of CodeStar iam roles](https://awsmeetupgroupreadmeimages.s3.amazonaws.com/ServerlessClassImages/Screen+Shot+2019-12-10+at+5.57.29+PM.png)
 
-![Picture of iam role dashboard](link-to-image)
+From there you will be able to "Project Resources" if you scroll down towards the bottom of that you will see "AWS IAM". Look for the role with the extension "CloudFormation" e.g. `arn:aws:iam::<AccountID>:role/CodeStarWorker-awsdenver-serve-CloudFormation`.
 
 Click into that role and it will bring you to the IAM page. From there you should see a blue button called "Attach policies" click that and in the search bar look for "AWSCodeDeployFullAccess", "IAMFullAccess", and "AmazonSSMFullAccess" select it and at the bottom hit "Attach Policy".
 
-![Picture of attached polices](link-to-image)
+![Picture of attached polices](https://awsmeetupgroupreadmeimages.s3.amazonaws.com/ServerlessClassImages/Screen+Shot+2019-12-10+at+5.58.53+PM.png)
 
 Adding full access to these services is more permissive than you should allow, but for simplicity of this project we are adding full access. If you want to be more granular you can adjust polices as needed.
 
-Now if you back to your code you can push all your changes up to github. Once you've done that you can go back to the CodeStar console and watch it build the resources. After its completed successfully you should have two APIs one with Lambda and one without. 
+Once you've done that you can go back to the CodeStar console and click "Release Changes". After its completed successfully you should have two APIs one with Lambda and one without. 
 
 Using your newly created APIs
 ------
